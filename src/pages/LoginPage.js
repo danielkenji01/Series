@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,  TextInput, StyleSheet } from 'react-native';
+import { View,  TextInput, StyleSheet, Button } from 'react-native';
 
 import FormRow from '../components/FormRow';
 
@@ -33,10 +33,14 @@ export default class LoginPage extends React.Component {
         });
     }
 
+    tryLogin() {
+        console.log(this.state);
+    }
+
     render() {
         return (
-            <View>
-                <FormRow>
+            <View style={styles.container}>
+                <FormRow first>
                     <TextInput 
                         placeholder="exemplo@email.com"
                         style={styles.input}
@@ -44,7 +48,7 @@ export default class LoginPage extends React.Component {
                         onChangeText={value => this.onChangeHandler('mail', value)}
                     />
                 </FormRow>
-                <FormRow>
+                <FormRow last>
                     <TextInput 
                         placeholder="******"
                         style={styles.input}
@@ -53,12 +57,20 @@ export default class LoginPage extends React.Component {
                         onChangeText={value => this.onChangeHandler('password', value)}
                     />
                 </FormRow>
+                <Button 
+                    title="Entrar"
+                    onPress={() => this.tryLogin()}
+                />
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        paddingLeft: 10,
+        paddingRight: 10
+    },
     input: {
         paddingLeft: 5,
         paddingRight: 5,
