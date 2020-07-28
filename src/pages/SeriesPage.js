@@ -3,16 +3,17 @@ import { StyleSheet, View, Text, FlatList } from 'react-native';
 
 import series from '../../series.json';
 
+import SerieCard from '../components/SerieCard';
+
 const SeriesPage = props => (
 	<View>
 		<FlatList 
 			data={series}
 			renderItem={({ item }) => (
-				<View>
-					<Text>{`${item.id} - ${item.title}`}</Text>
-				</View>
+				<SerieCard serie={item}/>
 			)}
 			keyExtractor={item => item.id}
+			numColumns={2}
 		/>
 	</View>
 );
