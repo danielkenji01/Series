@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { Alert } from 'react-native';
 
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 const userLoginSuccess = user => ({
@@ -22,41 +23,38 @@ export const tryLogin = ({ email, password }) => dispatch => {
             const action = userLoginSuccess(user);
             dispatch(action);
 
-            console.log(user);
+            return user;
         })
-        /*.catch(error => {
-
+        .catch(error => {
             if (error.code === 'auth/user-not-found') {
-                /* Alert.alert(Title, Message, Button[{text, onPress}])
-                Alert.alert(
-                    'Usuário não encontrado',
-                    'Deseja criar um cadastro com as informações inseridas?',
-                    [
-                        { 
-                            text: 'Não',
-                            onPress: () => console.log('Usuário não quer criar conta :('),
-                            style: 'cancel' // Only IOS =(
-                        },
-                        {
-                            text: 'Sim',
-                            onPress: () => {
-                                firebase
-                                    .auth()
-                                    .createUserWithEmailAndPassword(
-                                        mail, password
-                                    )
-                                    .then(loginUserSuccess)
-                                    .catch(loginUserFailed)
+                /* Alert.alert(Title, Message, Button[{text, onPress}]) */
+                return new Promise((resolve, reject) => {
+                    Alert.alert(
+                        'Usuário não encontrado',
+                        'Deseja criar um cadastro com as informações inseridas?',
+                        [
+                            { 
+                                text: 'Não',
+                                onPress: () => resolve(),
+                                style: 'cancel' // Only IOS =(
+                            },
+                            {
+                                text: 'Sim',
+                                onPress: () => {
+                                    firebase
+                                        .auth()
+                                        .createUserWithEmailAndPassword(
+                                            email, password
+                                        )
+                                        .then(resolve)
+                                        .catch(reject)
+                                }
                             }
-                        }
-                    ],
-                    { cancelable: false }
-                );
-                return;
+                        ],
+                        { cancelable: false }
+                    );
+                });
             }
-            loginUserFailed
-        })
-        .then(() => this.setState({
-            isLoading: false
-        })); */
+            return Promise.reject(error);
+        }); 
 }

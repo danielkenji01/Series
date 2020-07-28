@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { tryLogin } from '../actions';
 
 import FormRow from '../components/FormRow';
+import SeriesPage from './SeriesPage';
 
 class LoginPage extends React.Component {
 
@@ -72,7 +73,25 @@ class LoginPage extends React.Component {
 
         const { mail: email, password } = this.state;
 
-        this.props.tryLogin({ email, password });
+        this.props.tryLogin({ 
+            email, 
+            password 
+        }).then(user => {
+            // this.setState({ message: 'Sucesso!' });
+            if (user) {
+                return this.props.navigation.replace('Main');
+            } 
+
+            this.setState({
+                isLoading: false,
+                message: ''
+            });
+        }).catch(error => {
+            this.setState({
+                isLoading: false,
+                message: this.getMessageByErrorCode(error.code)
+            });
+        });
     }
 
     getMessageByErrorCode(errorCode) {
@@ -81,6 +100,8 @@ class LoginPage extends React.Component {
                 return 'Senha incorreta';
             case 'auth/user-not-found':
                 return 'Usuário não encontrado';
+            case 'auth/invalid-email':
+                return 'E-mail inválido';
             default: 
                 return 'Erro ao tentar fazer o login';
         }
