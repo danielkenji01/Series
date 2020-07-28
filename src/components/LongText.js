@@ -1,17 +1,53 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { 
+    View, 
+    Text, 
+    StyleSheet, 
+    TouchableWithoutFeedback 
+} from 'react-native';
 
-const Line = ({ label = "-", content = "-"}) => {
-    return (
-        <View style={styles.line}>
-            <Text style={[
-                styles.cell, 
-                styles.label
-            ]}
-            >{label}</Text>
-            <Text style={[styles.cell, styles.content]}>{ content }</Text>
-        </View>
-    );
+export default class LongText extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isExpanded: true
+        }
+    }
+
+    toggleIsExpanded() {
+        const { isExpanded } = this.state;
+
+        this.setState({
+            isExpanded: !isExpanded
+        });
+    }
+
+    render() {
+
+        const { label = '-', content = '-'} = this.props;
+        const { isExpanded } = this.state;
+
+        return (
+            <View style={styles.line}>
+                <Text style={[
+                    styles.cell, 
+                    styles.label
+                ]}
+                >{label}</Text>
+                <TouchableWithoutFeedback onPress={() => this.toggleIsExpanded()}>
+                    <View>
+                        <Text style={[
+                            styles.cell, 
+                            styles.content,
+                            isExpanded ? styles.expanded : styles.collapsed
+                        ]}>{ content }</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -33,7 +69,11 @@ const styles = StyleSheet.create({
     content: {
         flex: 4,
         textAlign: 'justify'
+    },
+    collapsed: {
+        maxHeight: 65
+    },
+    expanded: {
+        flex: 1
     }
 });
-
-export default Line;
