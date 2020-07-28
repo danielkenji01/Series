@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 
 import Line from '../components/Line';
+import LongText from '../components/LongText';
 
 export default class SerieDetailPage extends React.Component {
     render() {
@@ -42,7 +43,7 @@ export default class SerieDetailPage extends React.Component {
                     label="Nota"
                     content={serie.rate}
                 />
-                <Line 
+                <LongText 
                     label="Descrição"
                     content={serie.description}
                 />
