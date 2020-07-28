@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { 
+    ScrollView,
+    StyleSheet,
+    Image
+} from 'react-native';
+
+import Line from '../components/Line';
 
 export default class SerieDetailPage extends React.Component {
     render() {
@@ -16,13 +22,38 @@ export default class SerieDetailPage extends React.Component {
         };
 
         return (
-            <View>
-                <Text>{serie.title}</Text>
-            </View>
+            <ScrollView>
+                <Image 
+                    style={styles.image}
+                    source={{
+                        uri: serie.img
+                    }}
+                    resizeMode='contain'
+                />
+                <Line 
+                    label="Título"
+                    content={serie.title}
+                />
+                <Line 
+                    label="Gênero"
+                    content={serie.gender}
+                />
+                <Line 
+                    label="Nota"
+                    content={serie.rate}
+                />
+                <Line 
+                    label="Descrição"
+                    content={serie.description}
+                />
+            </ScrollView>
         )
     }
 }
 
 const styles = StyleSheet.create({
-
+    image: {
+        aspectRatio: 1,
+        padding: 10
+    }
 });
