@@ -9,10 +9,13 @@ import {
     Alert
 } from 'react-native';
 import firebase from 'firebase';
+import { connect } from 'react-redux';
+
+import { tryLogin } from '../actions';
 
 import FormRow from '../components/FormRow';
 
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component {
 
     constructor(props) {
         super(props);
@@ -67,59 +70,9 @@ export default class LoginPage extends React.Component {
             message: ''
         });
 
-        const { mail, password } = this.state;
-        const loginUserSuccess = user => {
-            this.setState({ message: 'Usuário criado' })
-        }
-        const loginUserFailed = error => {
-            this.setState({
-                message: this.getMessageByErrorCode(error.code)
-            })
-        }
+        const { mail: email, password } = this.state;
 
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(
-                mail, 
-                password
-            )
-            .then(loginUserSuccess)
-            .catch(error => {
-
-                if (error.code === 'auth/user-not-found') {
-                    /* Alert.alert(Title, Message, Button[{text, onPress}]) */
-                    Alert.alert(
-                        'Usuário não encontrado',
-                        'Deseja criar um cadastro com as informações inseridas?',
-                        [
-                            { 
-                                text: 'Não',
-                                onPress: () => console.log('Usuário não quer criar conta :('),
-                                style: 'cancel' // Only IOS =(
-                            },
-                            {
-                                text: 'Sim',
-                                onPress: () => {
-                                    firebase
-                                        .auth()
-                                        .createUserWithEmailAndPassword(
-                                            mail, password
-                                        )
-                                        .then(loginUserSuccess)
-                                        .catch(loginUserFailed)
-                                }
-                            }
-                        ],
-                        { cancelable: false }
-                    );
-                    return;
-                }
-                
-                loginUserFailed
-            })
-            .then(() => this.setState({
-                isLoading: false
-            }));
+        this.props.tryLogin({ email, password });
     }
 
     getMessageByErrorCode(errorCode) {
@@ -199,3 +152,8 @@ const styles = StyleSheet.create({
         paddingBottom: 5
     }
 });
+
+export default connect(
+    null,
+    { tryLogin }
+)(LoginPage);
