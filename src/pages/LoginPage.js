@@ -31,13 +31,13 @@ class LoginPage extends React.Component {
 
     componentDidMount() {
         const firebaseConfig = {
-            apiKey: "*************",
-            authDomain: "*************",
-            databaseURL: "*************",
-            projectId: "*************",
-            storageBucket: "*************",
-            messagingSenderId: "*************",
-            appId: "*************"
+            apiKey: "AIzaSyA8OcsqvTIBLj2hWs6QC0RV2PiETGa81I8",
+            authDomain: "series-2ac9b.firebaseapp.com",
+            databaseURL: "https://series-2ac9b.firebaseio.com",
+            projectId: "series-2ac9b",
+            storageBucket: "series-2ac9b.appspot.com",
+            messagingSenderId: "414647190476",
+            appId: "1:414647190476:web:499003d905c6e0cf2fd369"
         };
 
         // Initialize Firebase
