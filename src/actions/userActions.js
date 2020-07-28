@@ -12,7 +12,7 @@ const userLogout = () => ({
 });
 
 export const tryLogin = ({ email, password }) => dispatch => {
-    firebase
+    return firebase
         .auth()
         .signInWithEmailAndPassword(
             email, 
