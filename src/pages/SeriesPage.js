@@ -4,14 +4,21 @@ import { StyleSheet, View, FlatList, Text } from 'react-native';
 import series from '../../series.json';
 
 import SerieCard from '../components/SerieCard';
+import AddSerieCard from '../components/AddSerieCard';
 
 const isEven = number => number % 2 === 0;
 
 const SeriesPage = props => (
 	<View>
 		<FlatList 
-			data={series}
+			data={[
+				...series,
+				{ isLast: true }
+			]}
 			renderItem={({ item, index }) => (
+				item.isLast ? 
+				<AddSerieCard 
+					isFirstColumn={isEven(index)}/> :
 				<SerieCard 
 					serie={item}
 					isFirstColumn={isEven(index)}
