@@ -3,8 +3,14 @@ import {
     View, 
     Text, 
     StyleSheet, 
-    TouchableWithoutFeedback 
+    TouchableWithoutFeedback,
+    LayoutAnimation,
+    NativeModules
 } from 'react-native';
+
+// Only Android
+NativeModules.UIManager.setLayoutAnimationEnabledExperimental && 
+NativeModules.UIManager.setLayoutAnimationEnabledExperimental(true);
 
 export default class LongText extends React.Component {
 
@@ -24,8 +30,12 @@ export default class LongText extends React.Component {
         });
     }
 
-    render() {
+    // Chamado antes do render
+    componentDidUpdate(nextProps, nextState) {
+        LayoutAnimation.spring();
+    }
 
+    render() {
         const { label = '-', content = '-'} = this.props;
         const { isExpanded } = this.state;
 
