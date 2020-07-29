@@ -7,13 +7,19 @@ import SerieDetailPage from './pages/SerieDetailPage';
 import SerieFormPage from './pages/SerieFormPage';
 
 const AppNavigator = createStackNavigator({
-  'Main': {
-    screen: SeriesPage
-  },
   'Login': {
     screen: LoginPage,
     navigationOptions: {
       title: 'Bem vindo!'
+    }
+  },
+  'Main': {
+    screen: SeriesPage
+  },
+  'SerieForm': {
+    screen: SerieFormPage,
+    navigationOptions: {
+      title: 'Nova série'
     }
   },
   'SerieDetail': {
@@ -24,12 +30,6 @@ const AppNavigator = createStackNavigator({
       return { 
         title: serie.title
       }
-    }
-  },
-  'SerieForm': {
-    screen: SerieFormPage,
-    navigationOptions: {
-      title: 'Nova série'
     }
   },
 }, {
