@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import LoginPage from './pages/LoginPage';
 import SeriesPage from './pages/SeriesPage';
 import SerieDetailPage from './pages/SerieDetailPage';
+import SerieFormPage from './pages/SerieFormPage';
 
 const AppNavigator = createStackNavigator({
   'Main': {
@@ -23,6 +24,12 @@ const AppNavigator = createStackNavigator({
       return { 
         title: serie.title
       }
+    }
+  },
+  'SerieForm': {
+    screen: SerieFormPage,
+    navigationOptions: {
+      title: 'Nova série'
     }
   },
 }, {
