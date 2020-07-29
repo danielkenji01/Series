@@ -22,6 +22,11 @@ const serieSavedSuccess = () => ({
     type: SERIE_SAVED_SUCCESS
 })
 
+export const RESET_FORM = 'RESET_FORM';
+export const resetForm = () => ({
+    type: RESET_FORM
+});
+
 export const saveSerie = serie => {
     const { currentUser } = firebase.auth();
     const { uid } = currentUser;
