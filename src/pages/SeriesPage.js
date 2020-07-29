@@ -5,39 +5,51 @@ import SerieCard from '../components/SerieCard';
 import AddSerieCard from '../components/AddSerieCard';
 
 import { connect } from 'react-redux';
+import { watchSeries } from '../actions';
 
 const isEven = number => number % 2 === 0;
 
-const SeriesPage = ({ series, navigation }) => (
-	<View>
-		<FlatList 
-			data={[
-				...series,
-				{ isLast: true }
-			]}
-			renderItem={({ item, index }) => (
-				item.isLast ? 
-				<AddSerieCard 
-					isFirstColumn={isEven(index)}
-					onPress={() => navigation.navigate('SerieForm')}
-				/> :
-				<SerieCard 
-					serie={item}
-					isFirstColumn={isEven(index)}
-					onNavigate={() => navigation.navigate('SerieDetail', { serie: item })}
+class SeriesPage extends React.Component {
+
+	componentDidMount() {
+		this.props.watchSeries();
+	}
+
+	render() {
+		const { series, navigation } = this.props;
+
+		return (
+			<View>
+				<FlatList 
+					data={[
+						...series,
+						{ isLast: true }
+					]}
+					renderItem={({ item, index }) => (
+						item.isLast ? 
+						<AddSerieCard 
+							isFirstColumn={isEven(index)}
+							onPress={() => navigation.navigate('SerieForm')}
+						/> :
+						<SerieCard 
+							serie={item}
+							isFirstColumn={isEven(index)}
+							onNavigate={() => navigation.navigate('SerieDetail', { serie: item })}
+						/>
+					)}
+					keyExtractor={item => item.id}
+					numColumns={2}
+					ListHeaderComponent={props => (
+						<View style={styles.marginTop} />
+					)}
+					ListFooterComponent={props => (
+						<View style={styles.marginBottom} />
+					)}
 				/>
-			)}
-			keyExtractor={item => item.id}
-			numColumns={2}
-			ListHeaderComponent={props => (
-				<View style={styles.marginTop} />
-			)}
-			ListFooterComponent={props => (
-				<View style={styles.marginBottom} />
-			)}
-		/>
-	</View>
-);
+			</View>
+		);
+	}
+}
 
 const styles = StyleSheet.create({
 	marginTop: {
@@ -50,10 +62,18 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
 	const { series } = state;
+
+	const keys = Object.keys(series);
+	const seriesWithKeys = keys.map(key => {
+		return { ...series[key], id: key }
+	});
 	
-	return { series };
+	return { series: seriesWithKeys };
 }
 
 export default connect(
-	mapStateToProps
+	mapStateToProps,
+	{ 
+		watchSeries 
+	}
 )(SeriesPage);
