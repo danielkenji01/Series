@@ -17,7 +17,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.danielkenji.series"
+    },
+    "android": {
+      "package": "com.danielkenji.series"
     },
     "web": {
       "favicon": "./assets/favicon.png"
