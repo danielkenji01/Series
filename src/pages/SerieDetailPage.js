@@ -2,7 +2,8 @@ import React from 'react';
 import { 
     ScrollView,
     StyleSheet,
-    Image
+    Image,
+    Button
 } from 'react-native';
 
 import Line from '../components/Line';
@@ -10,7 +11,8 @@ import LongText from '../components/LongText';
 
 export default class SerieDetailPage extends React.Component {
     render() {
-        const { serie } = this.props.navigation.state.params;
+        const { navigation } = this.props;
+        const { serie } = navigation.state.params;
 
         return (
             <ScrollView>
@@ -39,6 +41,13 @@ export default class SerieDetailPage extends React.Component {
                 <LongText 
                     label="Descrição"
                     content={serie.description}
+                />
+
+                <Button 
+                    title="Editar"
+                    onPress={() => {
+                        navigation.navigate('SerieForm', { serieToEdit: serie });
+                    }}
                 />
             </ScrollView>
         )

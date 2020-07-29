@@ -11,6 +11,12 @@ export const setField = (field, value) => {
     }
 }
 
+export const SET_WHOLE_SERIE = 'SET_WHOLE_SERIE';
+export const setWholeSerie = serie => ({
+    type: SET_WHOLE_SERIE,
+    serie
+})
+
 export const SERIE_SAVED_SUCCESS = 'SERIE_SAVED_SUCCESS';
 const serieSavedSuccess = () => ({
     type: SERIE_SAVED_SUCCESS
