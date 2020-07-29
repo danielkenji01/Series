@@ -14,13 +14,16 @@ export default class SerieDetailPage extends React.Component {
 
         return (
             <ScrollView>
-                <Image 
-                    style={styles.image}
-                    source={{
-                        uri: serie.img
-                    }}
-                    resizeMode='contain'
-                />
+                {
+                    serie.img ? 
+                        <Image 
+                            style={styles.image}
+                            source={{
+                                uri: serie.img
+                            }}
+                            resizeMode='contain'
+                        /> : null
+                }
                 <Line 
                     label="Título"
                     content={serie.title}
