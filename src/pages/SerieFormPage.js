@@ -76,9 +76,10 @@ class SerieFormPage extends React.Component {
                             onValueChange={(itemValue, itemIndex) => setField('gender', itemValue)}
                         >
                             <Picker.Item label="Gênero" color="#c5c5c5"/>
-                            <Picker.Item label="Policial" value="police" />
-                            <Picker.Item label="Comédia" value="comedy" />
-                            <Picker.Item label="Terror" value="horror" />
+                            <Picker.Item label="Policial" value="Policial" />
+                            <Picker.Item label="Comédia" value="Comédia" />
+                            <Picker.Item label="Terror" value="Terror" />
+                            <Picker.Item label="Ficção Científica" value="Ficção Científica" />
                         </Picker>
                     </FormRow>
                     <FormRow>
