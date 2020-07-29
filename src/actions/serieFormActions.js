@@ -22,19 +22,13 @@ export const saveSerie = serie => {
 
     return async dispatch => {
         try {
-            return await firebase
+            await firebase
                 .database()
                 .ref(`/users/${uid}/series`)
-                .push(serie)
-                .then(() => {
-                    dispatch(serieSavedSuccess())
-                });
-                //.then(() => {
-                //console.log('Salvo no firebase')
-                //});
+                .push(serie);
+            dispatch(serieSavedSuccess());
         } catch(e) {
             console.log('Deu algum erro:', e);
         }
     }
-        
 }
