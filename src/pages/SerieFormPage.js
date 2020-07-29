@@ -16,7 +16,12 @@ import { setField, saveSerie } from '../actions';
 
 import FormRow from '../components/FormRow';
 
-const SerieFormPage = ({ serieForm, setField, saveSerie }) => (
+const SerieFormPage = ({ 
+    serieForm, 
+    setField, 
+    saveSerie,
+    navigation 
+}) => (
     <KeyboardAvoidingView 
         behavior="padding" 
         enabled
@@ -79,7 +84,12 @@ const SerieFormPage = ({ serieForm, setField, saveSerie }) => (
 
             <Button 
                 title="Salvar"
-                onPress={() => saveSerie(serieForm)}
+                onPress={() => {
+                    saveSerie(serieForm)
+                    .then(() => {
+                        navigation.goBack();
+                    })
+                }}
             />
         </ScrollView>
     </KeyboardAvoidingView>

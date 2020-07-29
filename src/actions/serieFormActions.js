@@ -11,18 +11,26 @@ export const setField = (field, value) => {
     }
 }
 
+export const SERIE_SAVED_SUCCESS = 'SERIE_SAVED_SUCCESS';
+const serieSavedSuccess = () => ({
+    type: SERIE_SAVED_SUCCESS
+})
+
 export const saveSerie = serie => {
     const { currentUser } = firebase.auth();
     const { uid } = currentUser;
 
     return async dispatch => {
         try {
-            await firebase
+            return await firebase
                 .database()
                 .ref(`/users/${uid}/series`)
                 .push(serie)
+                .then(() => {
+                    dispatch(serieSavedSuccess())
+                });
                 //.then(() => {
-                    console.log('Salvo no firebase')
+                //console.log('Salvo no firebase')
                 //});
         } catch(e) {
             console.log('Deu algum erro:', e);
