@@ -3,7 +3,8 @@ import {
     ScrollView,
     StyleSheet,
     Image,
-    Button
+    Button,
+    View
 } from 'react-native';
 
 import Line from '../components/Line';
@@ -43,12 +44,23 @@ export default class SerieDetailPage extends React.Component {
                     content={serie.description}
                 />
 
-                <Button 
-                    title="Editar"
-                    onPress={() => {
-                        navigation.navigate('SerieForm', { serieToEdit: serie });
-                    }}
-                />
+                <View style={styles.button}>
+                    <Button 
+                        title="Editar"
+                        onPress={() => {
+                            navigation.navigate('SerieForm', { serieToEdit: serie });
+                        }}
+                    />
+                </View>
+                <View style={styles.button}>
+                    <Button 
+                        title="Deletar"
+                        color="#FF0004"
+                        onPress={() => {
+                            
+                        }}
+                    />
+                </View>
             </ScrollView>
         )
     }
@@ -58,5 +70,8 @@ const styles = StyleSheet.create({
     image: {
         aspectRatio: 1,
         padding: 10
+    },
+    button: {
+        margin: 10
     }
 });
