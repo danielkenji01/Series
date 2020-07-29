@@ -21,14 +21,10 @@ export const saveSerie = serie => {
     const { uid } = currentUser;
 
     return async dispatch => {
-        try {
-            await firebase
-                .database()
-                .ref(`/users/${uid}/series`)
-                .push(serie);
-            dispatch(serieSavedSuccess());
-        } catch(e) {
-            console.log('Deu algum erro:', e);
-        }
+        await firebase
+            .database()
+            .ref(`/users/${uid}/series`)
+            .push(serie);
+        dispatch(serieSavedSuccess());
     }
 }
