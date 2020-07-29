@@ -7,10 +7,13 @@ import {
     View
 } from 'react-native';
 
+import { connect } from 'react-redux';
+import { deleteSerie } from '../actions';
+
 import Line from '../components/Line';
 import LongText from '../components/LongText';
 
-export default class SerieDetailPage extends React.Component {
+class SerieDetailPage extends React.Component {
     render() {
         const { navigation } = this.props;
         const { serie } = navigation.state.params;
@@ -56,8 +59,12 @@ export default class SerieDetailPage extends React.Component {
                     <Button 
                         title="Deletar"
                         color="#FF0004"
-                        onPress={() => {
-                            
+                        onPress={async () => {
+                            const hasDeleted = await this.props.deleteSerie(serie);
+
+                            if (hasDeleted) {
+                                navigation.goBack();
+                            }
                         }}
                     />
                 </View>
@@ -75,3 +82,8 @@ const styles = StyleSheet.create({
         margin: 10
     }
 });
+
+export default connect(
+    null,
+    { deleteSerie }
+)(SerieDetailPage);
