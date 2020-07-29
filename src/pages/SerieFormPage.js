@@ -5,7 +5,8 @@ import {
     Text, 
     TextInput,
     Picker,
-    Slider
+    Slider,
+    Button
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -51,12 +52,27 @@ const SerieFormPage = ({ serieForm, setField }) => (
             </View>
             <Slider
                 value={serieForm.rate}
-                onValueChange={value => {setField('rate', value) 
-                console.log(serieForm)}}
+                onValueChange={value => setField('rate', value)}
                 maximumValue={100}
                 step={5}
             />
         </FormRow>
+        <FormRow>
+            <TextInput 
+                style={styles.input}
+                placeholder="Descrição"
+                value={serieForm.description}
+                onChangeText={value => setField('description', value)}
+                underlineColorAndroid='#000'
+                numberOfLines={4}
+                multiline={true}
+            />
+        </FormRow>
+
+        <Button 
+            title="Salvar"
+            onPress={() => console.log(serieForm)}
+        />
 	</View>
 );
 
