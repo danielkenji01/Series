@@ -39,10 +39,10 @@ class SerieFormPage extends React.Component {
         const { params } = navigation.state;
 
         if (params && params.serieToEdit) {
-            setWholeSerie(params.serieToEdit);
-        } else {
-            resetForm();
+            return setWholeSerie(params.serieToEdit);
         }
+            
+        return resetForm();
     }
 
     reverseLoading() {
