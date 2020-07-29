@@ -8,7 +8,8 @@ import {
     Slider,
     Button,
     ScrollView,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -16,82 +17,111 @@ import { setField, saveSerie } from '../actions';
 
 import FormRow from '../components/FormRow';
 
-const SerieFormPage = ({ 
-    serieForm, 
-    setField, 
-    saveSerie,
-    navigation 
-}) => (
-    <KeyboardAvoidingView 
-        behavior="padding" 
-        enabled
-        keyboardVerticalOffset={10}
-    >
-        <ScrollView>
-            <FormRow first>
-                <TextInput 
-                    style={styles.input}
-                    placeholder="Título"
-                    value={serieForm.title}
-                    onChangeText={value => setField('title', value)}
-                    underlineColorAndroid='#000'
-                />
-            </FormRow>
-            <FormRow>
-                <TextInput 
-                    style={styles.input}
-                    placeholder="Url da imagem"
-                    value={serieForm.img}
-                    onChangeText={value => setField('img', value)}
-                    underlineColorAndroid='#000'
-                />
-            </FormRow>
-            <FormRow>
-                <Picker
-                    style={styles.picker}
-                    selectedValue={serieForm.gender}
-                    onValueChange={(itemValue, itemIndex) => setField('gender', itemValue)}
-                >
-                    <Picker.Item label="Gênero" color="#c5c5c5"/>
-                    <Picker.Item label="Policial" value="police" />
-                    <Picker.Item label="Comédia" value="comedy" />
-                    <Picker.Item label="Terror" value="horror" />
-                </Picker>
-            </FormRow>
-            <FormRow>
-                <View style={styles.sameRow}>
-                    <Text>Nota: </Text>
-                    <Text>{serieForm.rate}</Text>
-                </View>
-                <Slider
-                    value={serieForm.rate}
-                    onValueChange={value => setField('rate', value)}
-                    maximumValue={100}
-                    step={5}
-                />
-            </FormRow>
-            <FormRow>
-                <TextInput 
-                    style={styles.input}
-                    placeholder="Descrição"
-                    value={serieForm.description}
-                    onChangeText={value => setField('description', value)}
-                    underlineColorAndroid='#000'
-                    numberOfLines={4}
-                    multiline={true}
-                />
-            </FormRow>
+class SerieFormPage extends React.Component { 
 
-            <Button 
-                title="Salvar"
-                onPress={async () => {
-                    await saveSerie(serieForm);
-                    navigation.goBack();
-                }}
-            />
-        </ScrollView>
-    </KeyboardAvoidingView>
-);
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isLoading: false
+        }
+    }
+
+    reverseLoading() {
+        const { isLoading } = this.state;
+
+        this.setState({
+            isLoading: !isLoading
+        });
+    }
+
+    render() {
+        const {
+            serieForm, 
+            setField, 
+            saveSerie,
+            navigation 
+        } = this.props;
+
+        return (
+            <KeyboardAvoidingView 
+                behavior="padding" 
+                enabled
+                keyboardVerticalOffset={10}
+            >
+                <ScrollView>
+                    <FormRow first>
+                        <TextInput 
+                            style={styles.input}
+                            placeholder="Título"
+                            value={serieForm.title}
+                            onChangeText={value => setField('title', value)}
+                            underlineColorAndroid='#000'
+                        />
+                    </FormRow>
+                    <FormRow>
+                        <TextInput 
+                            style={styles.input}
+                            placeholder="Url da imagem"
+                            value={serieForm.img}
+                            onChangeText={value => setField('img', value)}
+                            underlineColorAndroid='#000'
+                        />
+                    </FormRow>
+                    <FormRow>
+                        <Picker
+                            style={styles.picker}
+                            selectedValue={serieForm.gender}
+                            onValueChange={(itemValue, itemIndex) => setField('gender', itemValue)}
+                        >
+                            <Picker.Item label="Gênero" color="#c5c5c5"/>
+                            <Picker.Item label="Policial" value="police" />
+                            <Picker.Item label="Comédia" value="comedy" />
+                            <Picker.Item label="Terror" value="horror" />
+                        </Picker>
+                    </FormRow>
+                    <FormRow>
+                        <View style={styles.sameRow}>
+                            <Text>Nota: </Text>
+                            <Text>{serieForm.rate}</Text>
+                        </View>
+                        <Slider
+                            value={serieForm.rate}
+                            onValueChange={value => setField('rate', value)}
+                            maximumValue={100}
+                            step={5}
+                        />
+                    </FormRow>
+                    <FormRow>
+                        <TextInput 
+                            style={styles.input}
+                            placeholder="Descrição"
+                            value={serieForm.description}
+                            onChangeText={value => setField('description', value)}
+                            underlineColorAndroid='#000'
+                            numberOfLines={4}
+                            multiline={true}
+                        />
+                    </FormRow>
+        
+                    {
+                        this.state.isLoading ? 
+                            <ActivityIndicator /> :
+                            <Button 
+                                title="Salvar"
+                                onPress={async () => {
+                                    this.reverseLoading();
+                                    await saveSerie(serieForm);
+                                    this.reverseLoading();
+                                    navigation.goBack();
+                                }}
+                            />
+                    }
+                </ScrollView>
+            </KeyboardAvoidingView>
+        );
+    } 
+}
 
 const styles = StyleSheet.create({
 	input: {
