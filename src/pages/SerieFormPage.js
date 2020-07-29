@@ -47,6 +47,7 @@ const SerieFormPage = ({ serieForm, setField, saveSerie }) => (
                     selectedValue={serieForm.gender}
                     onValueChange={(itemValue, itemIndex) => setField('gender', itemValue)}
                 >
+                    <Picker.Item label="Gênero" color="#c5c5c5"/>
                     <Picker.Item label="Policial" value="police" />
                     <Picker.Item label="Comédia" value="comedy" />
                     <Picker.Item label="Terror" value="horror" />
