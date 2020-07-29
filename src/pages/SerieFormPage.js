@@ -12,11 +12,11 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import { setField } from '../actions';
+import { setField, saveSerie } from '../actions';
 
 import FormRow from '../components/FormRow';
 
-const SerieFormPage = ({ serieForm, setField }) => (
+const SerieFormPage = ({ serieForm, setField, saveSerie }) => (
     <KeyboardAvoidingView 
         behavior="padding" 
         enabled
@@ -78,7 +78,7 @@ const SerieFormPage = ({ serieForm, setField }) => (
 
             <Button 
                 title="Salvar"
-                onPress={() => console.log(serieForm)}
+                onPress={() => saveSerie(serieForm)}
             />
         </ScrollView>
     </KeyboardAvoidingView>
@@ -106,7 +106,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-    setField
+    setField,
+    saveSerie
 }
 
 export default connect(
