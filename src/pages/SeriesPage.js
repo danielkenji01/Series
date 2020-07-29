@@ -18,7 +18,9 @@ const SeriesPage = props => (
 			renderItem={({ item, index }) => (
 				item.isLast ? 
 				<AddSerieCard 
-					isFirstColumn={isEven(index)}/> :
+					isFirstColumn={isEven(index)}
+					onPress={() => props.navigation.navigate('SerieForm')}
+				/> :
 				<SerieCard 
 					serie={item}
 					isFirstColumn={isEven(index)}

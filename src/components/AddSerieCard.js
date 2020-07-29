@@ -8,22 +8,18 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-const AddSerieCard = ({ serie, isFirstColumn, onNavigate }) => (
+const AddSerieCard = ({ serie, isFirstColumn, onPress }) => (
     <TouchableOpacity 
-        onPress={() => onNavigate(serie)}
+        onPress={onPress}
         style={[
             styles.container,
             isFirstColumn ? styles.firstColumn : styles.lastColumn
         ]}>
         <View style={styles.card}>
-            <Text>Adicionar Série</Text>
-            {/*<Image 
-                source={{
-                    uri: serie.img
-                }}
-                aspectRatio={1}
-                resizeMode='contain'
-            /> */}
+            <Image 
+                source={require('../../resources/more.png')}
+                style={styles.image}
+            />
         </View>
     </TouchableOpacity>
 );
@@ -43,11 +39,14 @@ const styles = StyleSheet.create({
         // borderColor: 'red'
     },
     card: {
-        flex: 1,
-        borderWidth: 1,
+        flex: 1
 
         // Solução 2
         // margin: 10
+    },
+    image: {
+        width: '100%',
+        height: '100%'
     },
     firstColumn: {
         paddingLeft: 10
