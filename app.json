@@ -21,7 +21,12 @@
       "bundleIdentifier": "com.danielkenji.series"
     },
     "android": {
-      "package": "com.danielkenji.series"
+      "package": "com.danielkenji.series",
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "CAMERA"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
