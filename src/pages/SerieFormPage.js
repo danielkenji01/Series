@@ -106,6 +106,7 @@ class SerieFormPage extends React.Component {
                                     uri: `data:image/jpeg;base64,${serieForm.img64}`
                                 }}
                                 style={styles.img}
+                                resizeMode='contain'
                             /> : 
                             null}
                         <Button
