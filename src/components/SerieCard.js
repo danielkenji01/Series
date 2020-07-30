@@ -17,10 +17,10 @@ const SerieCard = ({ serie, isFirstColumn, onNavigate }) => (
         ]}>
         <View style={styles.card}>
             {
-                serie.img ? 
+                serie.img || serie.img64 ? 
                     <Image 
                         source={{
-                            uri: serie.img
+                            uri: serie.img ? serie.img : `data:image/jpeg;base64,${serie.img64}`
                         }}
                         aspectRatio={1}
                         resizeMode='contain'
