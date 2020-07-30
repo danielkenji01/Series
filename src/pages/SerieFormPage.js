@@ -59,12 +59,14 @@ class SerieFormPage extends React.Component {
 
     async pickImage() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        // const { status } = await Permissions.askAsync(Permissions.CAMERA); Permissão de câmera
 
         if (status !== 'granted') {
             Alert.alert('Você precisa permitir o acesso');
             return;
         }
 
+        // ImagePicker.launchCameraAsync()
         const result = await ImagePicker.launchImageLibraryAsync({
             quality: 0.2,
             base64: true,
